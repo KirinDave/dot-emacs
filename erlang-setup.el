@@ -1,11 +1,24 @@
+
 ;;This is needed for Erlang mode setup
-(setq erlang-root-dir "/p/lib/erlang")
-(setq load-path (cons "/p/lib/erlang/lib/tools-2.6.4/emacs" load-path))
-(setq exec-path (cons "/p/lib/erlang/bin" exec-path))
+
+(defun get-erlang-root ()
+  (if (file-exists-p "/p/lib/erlang")
+      "/p/lib/erlang"
+      "/usr/local/lib/erlang"))
+
+(let* ((root-dir   (get-erlang-root))
+       (bin-dir    (expand-file-name "bin" root-dir))
+       (tools-dirs (file-expand-wildcards (concat root-dir
+						  "/lib/tools-2.6.*/emacs"))))
+  (setq erlang-root-dir root-dir)
+  (add-to-list 'load-path (car tools-dirs))
+  (add-to-list 'exec-path bin-dir))
+
+
 (require 'erlang-start)
 
 ;;This is needed for Distel setup
-(let ((distel-dir "/Users/dfayram/.emacs.d/manual/distel/elisp"))
+(let ((distel-dir (expand-file-name "~/.emacs.d/manual/distel/elisp")))
  (unless (member distel-dir load-path)
    ; Add distel-dir to the end of load-path
    (setq load-path (append load-path (list distel-dir)))))
