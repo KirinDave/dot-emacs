@@ -12,6 +12,8 @@
   (package-initialize))
 
 (add-to-list 'load-path "~/.emacs.d/manual")
+(setq indent-tabs-mode nil)
+
 
 (defun edit-my-preferences ()
   "Edits my local preferences."

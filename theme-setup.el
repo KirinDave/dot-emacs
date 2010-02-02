@@ -2,4 +2,5 @@
 (require 'color-theme)
 (eval-after-load 'color-theme
   (progn (color-theme-initialize)
-	 (color-theme-charcoal-black)))
+	 (color-theme-charcoal-black)
+	 (set-face-background 'region "#555555")))
